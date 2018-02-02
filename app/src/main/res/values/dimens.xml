@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+
+    <!-- Heading and paragraphs  -->
+    <dimen name="h1">23sp</dimen>
+    <dimen name="h2">22sp</dimen>
+    <dimen name="h3">21sp</dimen>
+    <dimen name="h4">20sp</dimen>
+    <dimen name="h5">19sp</dimen>
+    <dimen name="h6">18sp</dimen>
+    <dimen name="h7">17sp</dimen>
+    <dimen name="p1">16sp</dimen>
+    <dimen name="p2">15sp</dimen>
+    <dimen name="p3">14sp</dimen>
+    <dimen name="p4">13sp</dimen>
+    <dimen name="p5">12sp</dimen>
+    <dimen name="p6">11sp</dimen>
+    <dimen name="p7">10sp</dimen>
+    <dimen name="p8">9sp</dimen>
+
+
+    <dimen name="course_progress">2dp</dimen>
+    <dimen name="course_image">80dp</dimen>
+    <dimen name="course_download_progress">3dp</dimen>
+</resources>

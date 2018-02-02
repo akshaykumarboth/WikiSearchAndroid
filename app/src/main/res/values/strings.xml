@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="app_name">WikiSearch</string>
+    <string name="serverip">https://en.wikipedia.org//w/api.php?action=query</string>
+    <string name="endurl">gpslimit=10</string>
+
+
+    <string name="progressgif">loading.gif</string>
+
+
+    <string name="shared_preference_key">WikiComplexKey</string>
+    <string name="searchList">SEARCHLIST</string>
+
+</resources>

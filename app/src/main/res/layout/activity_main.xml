@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:background="@android:color/white"
+    tools:context="com.akshayboth.wikisearch.activity.MainActivity">
+    <include layout="@layout/progress_layout"></include>
+
+    <LinearLayout
+        android:id="@+id/ll_input_con"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+       <!-- <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:src="@mipmap/ic_ws"
+            android:layout_gravity="center_horizontal"
+            />-->
+
+        <AutoCompleteTextView
+            android:id="@+id/et_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_shape"
+            android:layout_marginBottom="15dp"
+            android:paddingLeft="10dp"
+            android:inputType="text"
+            android:hint="Write here.."
+            >
+        </AutoCompleteTextView>
+
+        <TextView
+            android:id="@+id/tv_error_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/error_bg"
+            android:lineSpacingExtra="16sp"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/error_text"
+            android:textSize="@dimen/p3"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_shape"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:text="Search"/>
+
+    </LinearLayout>
+
+</LinearLayout>

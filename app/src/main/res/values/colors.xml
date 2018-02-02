@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ef5d70</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#ba1229</color>
+
+
+    <color name="error_bg">#ffeded</color>
+    <color name="error_text">#e35757</color>
+
+    <color name="input_border">#9b9b9b</color>
+    <color name="theme_color">#ed455c</color>
+
+    <color name="card_header">@color/input_border</color>
+    <color name="black_theme_text">#3f3f3f</color>
+
+</resources>
