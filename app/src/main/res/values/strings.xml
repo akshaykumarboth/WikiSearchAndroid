@@ -1,14 +1,24 @@
 <resources>
 
-    <string name="app_name">WikiSearch</string>
+    <string name="app_name">Wikipedia</string>
     <string name="serverip">https://en.wikipedia.org//w/api.php?action=query</string>
     <string name="endurl">gpslimit=10</string>
 
-
     <string name="progressgif">loading.gif</string>
+    <string name="gd">gd.gif</string>
 
 
     <string name="shared_preference_key">WikiComplexKey</string>
     <string name="searchList">SEARCHLIST</string>
+    <string name="title">title</string>
+    <string name="wiki_search_base_url">http://en.wikipedia.org/w/api.php?action=opensearch&amp;search=</string>
+    <string name="wiki_url_param">&amp;limit=8&amp;namespace=0&amp;format=json</string>
+    <string name="midurl"><![CDATA[&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=50&pilimit=10&wbptterms=description&gpssearch=]]></string>
+    <string name="sorry_text">Sorry! No results Found!!</string>
+    <string name="no_results">No search results found.</string>
+    <string name="search_text">search here...</string>
+    <string name="exit_text">Are you sure you want to exit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

@@ -5,30 +5,17 @@
     android:layout_height="match_parent"
     android:visibility="gone"
     android:id="@+id/progresslayout"
-    android:background="@android:color/white"
+    android:background="@android:color/transparent"
     >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_theme_text_80"/>
     <com.felipecsl.gifimageview.library.GifImageView
         android:id="@+id/gifImageView"
         android:layout_gravity="center"
+        android:layout_centerInParent="true"
         android:scaleType="fitCenter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <!--<ProgressBar
-        android:theme="@style/CircularProgress"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/progress"
-        android:layout_marginBottom="15dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="   Loading ..."
-        android:textColor="@color/theme_color"
-        android:textSize="@dimen/p2"
-        android:layout_below="@+id/progress"
-        android:layout_centerHorizontal="true"/>-->
 </RelativeLayout>

@@ -1,8 +1,8 @@
 package com.akshayboth.wikisearch.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +14,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akshayboth.wikisearch.R;
-import com.akshayboth.wikisearch.activity.ResultsActivity;
 import com.akshayboth.wikisearch.activity.WikiWebActivity;
 import com.akshayboth.wikisearch.pojo.WikiPage;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class ResultsAdapter extends
-        RecyclerView.Adapter<ResultsAdapter.MyViewHolder> {
+        RecyclerView.Adapter<ResultsAdapter.ResultsViewHolder> {
 
     private List<WikiPage> wikiList;
     private Context context;
@@ -30,22 +29,18 @@ public class ResultsAdapter extends
     /**
      * View holder class
      * */
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class ResultsViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public TextView description;
         public ImageView image;
-        public ImageButton downloadBtn;
-        public ProgressBar progressBar;
         public LinearLayout main_layout;
 
-        public MyViewHolder(View view) {
+        public ResultsViewHolder(View view) {
             super(view);
 
             title = (TextView) view.findViewById(R.id.title);
             description = (TextView) view.findViewById(R.id.description);
             image = (ImageView)view.findViewById(R.id.item_image);
-            downloadBtn = (ImageButton)view.findViewById(R.id.download_button);
-            progressBar = (ProgressBar)view.findViewById(R.id.download_progress);
             main_layout = (LinearLayout)view.findViewById(R.id.main_layout);
 
         }
@@ -56,8 +51,16 @@ public class ResultsAdapter extends
         this.context = context;
     }
 
+    private void setTypeface(ResultsViewHolder holder) {
+        final Typeface abel = Typeface.createFromAsset(context.getResources().getAssets(), "font2/abel-regular.ttf");
+
+        holder.description.setTypeface(abel);
+        holder.title.setTypeface(abel);
+    }
+
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(ResultsViewHolder holder, int position) {
+        setTypeface(holder);
         final WikiPage item = wikiList.get(position);
         String description = "";
         holder.title.setText(item.getTitle());
@@ -75,9 +78,13 @@ public class ResultsAdapter extends
 
                     s1 = item.getThumbnail().getSource().replace(s1, "100px");
                     System.out.println("aa ------------------------------------------------------       " + s1);
-                    Picasso.with(context).
-                            load(s1)
+
+                    Glide.with(context)
+                            .load(s1)
+                            .placeholder(R.drawable.wk2)
                             .into(holder.image);
+
+
                 }
             }
         }
@@ -88,10 +95,8 @@ public class ResultsAdapter extends
 
                String title = item.getTitle().trim().replaceAll(" ", "_");
                Intent i = new Intent(context, WikiWebActivity.class);
-               i.putExtra("title", title);
-               i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+               i.putExtra(context.getResources().getString(R.string.title), title);
                context.startActivity(i);
-               ((Activity)context).finish();
 
            }
        });
@@ -99,15 +104,17 @@ public class ResultsAdapter extends
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return wikiList.size();
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ResultsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_view_holder,parent, false);
-        return new MyViewHolder(v);
+        return new ResultsViewHolder(v);
     }
 }

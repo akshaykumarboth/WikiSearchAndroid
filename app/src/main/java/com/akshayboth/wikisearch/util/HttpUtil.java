@@ -109,23 +109,11 @@ public class HttpUtil {
 
     private HttpResponse getHttpResponse() {
         HttpResponse httpResponse = null;
-        /*HttpParams httpParameters = new BasicHttpParams();
-// Set the timeout in milliseconds until a connection is established.
-// The default value is zero, that means the timeout is not used.
-        int timeoutConnection = 300000;
-        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-// Set the default socket timeout (SO_TIMEOUT)
-// in milliseconds which is the timeout for waiting for data.
-        int timeoutSocket = 500000;
-        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);*/
+
         if (socketTimeOut != 0 || connectionTimeOut != 0) {
             HttpParams httpParameters = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpParameters, connectionTimeOut);
             HttpConnectionParams.setSoTimeout(httpParameters, socketTimeOut);
-            /*if (android.os.Build.VERSION.SDK_INT > 9) {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-            }*/
 
             httpclient = new DefaultHttpClient(httpParameters);
         }
@@ -133,12 +121,12 @@ public class HttpUtil {
             switch (type) {
                 case "GET":
                     HttpGet httpGet = new HttpGet(url);
-                    httpGet.setHeader("viksit-user-agent", getTocken());
+
                     httpResponse = httpclient.execute(httpGet);
                     break;
                 case "POST":
                     HttpPost httpPost = new HttpPost(url);
-                    httpPost.setHeader("viksit-user-agent", getTocken());
+
 
                     List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                     if (param != null) {
@@ -150,16 +138,16 @@ public class HttpUtil {
                     if (postrequest != null) {
                         HttpEntity entity = new StringEntity(postrequest);
                         httpPost.setEntity(entity);
-                        //httpPost.setHeader("Accept", "application/json");
+
                         httpPost.setHeader("Content-type", "application/json");
-                        //httpPost.setHeader("Authorization","" );
+
                     }
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     httpResponse = httpclient.execute(httpPost);
                     break;
                 case "PUT":
                     HttpPut httpPut = new HttpPut(url);
-                    httpPut.setHeader("viksit-user-agent", getTocken());
+
                     if (postrequest != null) {
                         HttpEntity entity = new StringEntity(postrequest);
                         httpPut.setEntity(entity);
@@ -223,44 +211,6 @@ public class HttpUtil {
         this.connectionTimeOut = connectionTimeOut;
     }
 
-    public String getTocken() {
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        Date date = new Date();
-        String timeNow = dateFormat.format(date).toString();
-        timeNow = timeNow.replaceAll("/", "").replaceAll(":", "").replaceAll(" ", "");
-        System.err.println(timeNow);
-
-        Random r = new Random();
-        int Low = 1;
-        int High = 24;
-        int Result = r.nextInt(High - Low) + Low;
-
-        for (int j = 0; j < 3; j++) {
-
-            StringBuffer randStr = new StringBuffer();
-            char ch;
-            Result = r.nextInt(High - Low) + Low;
-            for (int i = 0; i < 3; i++) {
-                Result = r.nextInt(High - Low) + Low;
-                // Result = r.nextInt(High-Low) + Low;
-                String CHAR_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                ch = CHAR_LIST.charAt(Result);
-                randStr.append(ch);
-            }
-
-            if (j == 0) {
-                timeNow = new StringBuffer(timeNow).insert(timeNow.length() - 10, randStr).toString();
-            }
-            if (j == 1) {
-                timeNow = new StringBuffer(timeNow).insert(timeNow.length() - 3, randStr).toString();
-            }
-            if (j == 2) {
-                timeNow = new StringBuffer(timeNow).insert(timeNow.length() - 7, randStr).toString();
-            }
-
-        }
-        return "viksit-" + timeNow;
-    }
 
 }

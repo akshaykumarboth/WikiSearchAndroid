@@ -16,14 +16,14 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/wiki" />
 
         <TextView
             android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Sorry! No results Found!!"
+            android:text="@string/sorry_text"
             android:textColor="@color/input_border"
             android:textSize="21sp" />
 
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="No search results found."
+            android:text="@string/no_results"
             android:textAlignment="center"
             android:textColor="@color/input_border"
             android:textSize="14sp" />

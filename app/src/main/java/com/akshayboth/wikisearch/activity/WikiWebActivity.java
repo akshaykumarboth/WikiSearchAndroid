@@ -27,13 +27,16 @@ public class WikiWebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wiki_web);
 
         webView = (WebView) findViewById(R.id.webview);
-
         String input = "";
         try{
-            input = getIntent().getExtras().getString("title").trim().replaceAll(" ","_");
+            input = getIntent().getStringExtra(getResources().getString(R.string.title));
+            setupWebView(input);
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void setupWebView(String input) {
         String url = "https://en.wikipedia.org/wiki/" + input;
         webView.getSettings().setAppCacheMaxSize( 5 * 1024 * 1024 ); // 5MB
         webView.getSettings().setAppCachePath( getApplicationContext().getCacheDir().getAbsolutePath() );
@@ -48,20 +51,8 @@ public class WikiWebActivity extends AppCompatActivity {
 
         webView.setWebViewClient(new MyBrowser());
         webView.loadUrl(url);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
-    @Override
-    public boolean onSupportNavigateUp(){
-        Intent i = new Intent(WikiWebActivity.this, ResultsActivity.class);
-        //i.putExtra("title", title);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
-        finish();
-        return true;
-    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService( CONNECTIVITY_SERVICE );

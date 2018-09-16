@@ -24,47 +24,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResultsActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    private RelativeLayout no_data;
-    List<WikiPage> wikiPageList;
 
-    private SharedPreferences sharedpreferences;
+    private RecyclerView recyclerView;
+    private RelativeLayout no_data;
+    private List<WikiPage> wikiPageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
         no_data = (RelativeLayout) findViewById(R.id.no_data_found_layout);
 
+        getData();
+        setRecyclerView();
+    }
+
+    private void getData() {
+        wikiPageList = new ArrayList<>();
         try{
-            sharedpreferences = getSharedPreferences(getResources().getString(R.string.shared_preference_key), Context.MODE_PRIVATE);
-            //editor = sharedpreferences.edit();
-            String jsonresponse = sharedpreferences.getString(getResources().getString(R.string.searchList), "");
-
-            //String jsonresponse = getIntent().getExtras().getString("jsonresponse");
-            System.out.println(jsonresponse);
+            String jsonresponse = "" ;
+            if (getIntent() != null) {
+                Intent i = getIntent();
+                jsonresponse = i.getStringExtra(getResources().getString(R.string.searchList));
+            }
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-
             Root root = gson.fromJson(jsonresponse, Root.class);
             wikiPageList = root.getQuery().getPages();
-            for (WikiPage p : wikiPageList) {
-                System.out.print(p.getTitle());
-            }
-
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        setRecyclerView();
     }
 
     private void setRecyclerView(){
 
         if (wikiPageList != null && wikiPageList.size() != 0) {
-
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -75,23 +70,11 @@ public class ResultsActivity extends AppCompatActivity {
             showNoData();
         }
 
-
-
     }
 
     public void showNoData() {
         recyclerView.setVisibility(View.GONE);
         no_data.setVisibility(View.VISIBLE);
-    }
-
-
-
-    @Override
-    public boolean onSupportNavigateUp(){
-        startActivity(new Intent(ResultsActivity.this, MainActivity.class));
-        //overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
-        finish();
-        return true;
     }
 
 }

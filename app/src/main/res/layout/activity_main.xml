@@ -9,6 +9,7 @@
     android:focusableInTouchMode="true"
     android:background="@android:color/white"
     tools:context="com.akshayboth.wikisearch.activity.MainActivity">
+    <include layout="@layout/header"></include>
     <include layout="@layout/progress_layout"></include>
 
     <LinearLayout
@@ -17,23 +18,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="20dp">
-       <!-- <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            android:src="@mipmap/ic_ws"
+        <ImageView
+            android:id="@+id/wiki_icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            />-->
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/wiki"/>
 
         <AutoCompleteTextView
             android:id="@+id/et_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/input_shape"
+            android:drawableLeft="@drawable/ic_baseline_search_24px"
+            android:drawablePadding="5dp"
             android:layout_marginBottom="15dp"
             android:paddingLeft="10dp"
+            android:dropDownHeight="150dp"
             android:inputType="text"
-            android:hint="Write here.."
+            android:hint="@string/search_text"
             >
         </AutoCompleteTextView>
 
@@ -41,12 +45,12 @@
             android:id="@+id/tv_error_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/error_bg"
+            android:background="@color/input_border_80"
             android:lineSpacingExtra="16sp"
             android:padding="5dp"
             android:text=""
-            android:textColor="@color/error_text"
-            android:textSize="@dimen/p3"
+            android:textColor="@color/black_theme_text"
+            android:textSize="@dimen/p4"
             android:layout_marginBottom="10dp"
             android:visibility="gone"/>
 
@@ -58,10 +62,11 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
             android:text="Search"/>
 
     </LinearLayout>
+
 
 </LinearLayout>

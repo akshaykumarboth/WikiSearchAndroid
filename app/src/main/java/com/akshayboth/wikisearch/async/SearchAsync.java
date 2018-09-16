@@ -1,5 +1,6 @@
 package com.akshayboth.wikisearch.async;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,64 +29,44 @@ import java.util.List;
 
 public class SearchAsync extends AsyncTask<String, Integer, String> {
     private HashMap<String, String> param;
+    @SuppressLint("StaticFieldLeak")
     private Context context;
-    private SharedPreferences sharedpreferences;
 
-    //private final Gson gson = new Gson();
-
-    public SearchAsync(HashMap<String, String> param, Context context, SharedPreferences sharedpreferences) {
+    public SearchAsync(HashMap<String, String> param, Context context) {
         this.param = param;
         this.context = context;
-        this.sharedpreferences = sharedpreferences;
     }
 
     @Override
     protected void onPreExecute() {
 
+        ((MainActivity) context).searchbtn.setEnabled(false);
     }
 
     @Override
     protected String doInBackground(String... params) {
-        // TODO Auto-generated method stub
         return postData(param, params[0]);
     }
 
-
     @Override
     protected void onPostExecute(String jsonresponse) {
-
-        if (!jsonresponse.equalsIgnoreCase("null") && !jsonresponse.equalsIgnoreCase("[]") && !jsonresponse.equalsIgnoreCase("") && !jsonresponse.contains("istarViksitProComplexKey")) {
-            //dialog.show();
+        ((MainActivity) context).searchbtn.setEnabled(true);
+        ((MainActivity) context).ll_input_con.setVisibility(View.VISIBLE);
+        ((MainActivity) context).progresslayout.setVisibility(View.GONE);
+        if (!jsonresponse.equalsIgnoreCase("null") && !jsonresponse.equalsIgnoreCase("[]") && !jsonresponse.equalsIgnoreCase("")) {
             Intent i = null;
-
             try {
-                /*Gson gson = new Gson();
-                Root root = gson.fromJson(jsonresponse, Root.class);
-
-                List<WikiPage> pages = root.getQuery().getPages();
-                Type type = new TypeToken<List<WikiPage>>() {}.getType();
-                jsonresponse = gson.toJson(pages, type);
-                //jsonresponse = gson.toJson(pages);*/
-                //System.out.println(jsonresponse);
                 if (context instanceof MainActivity)
                     ((MainActivity) context).gifImageView.stopAnimation();
-
                 i = new Intent(context, ResultsActivity.class);
-                //i.putExtra("jsonresponse", jsonresponse);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra(context.getString(R.string.searchList), jsonresponse);
                 context.startActivity(i);
-                ((Activity)context).finish();
-
             } catch (Exception e) {
                 setErrorMessage("Oops! something went wrong.");
             }
-
-        } else if (!jsonresponse.equalsIgnoreCase("null") && jsonresponse.contains("istarViksitProComplexKey")) {
-            setErrorMessage(jsonresponse.replaceAll("istarViksitProComplexKey", "").replaceAll("\"", ""));
         } else {
             setErrorMessage("Please check your internet connection.");
         }
-
     }
 
     @Override
@@ -93,11 +74,9 @@ public class SearchAsync extends AsyncTask<String, Integer, String> {
         super.onProgressUpdate(progress);
 
         if (context instanceof MainActivity) {
-
             ((MainActivity) context).ll_input_con.setVisibility(View.GONE);
             ((MainActivity) context).progresslayout.setVisibility(View.VISIBLE);
             ((MainActivity) context).gifImageView.startAnimation();
-
             ((MainActivity) context).errorMessage.setVisibility(View.GONE);
         }
 
@@ -119,18 +98,9 @@ public class SearchAsync extends AsyncTask<String, Integer, String> {
 
     private String postData(HashMap<String, String> param, String url) {
         publishProgress(5);
-
-        String midurl = "&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=50&pilimit=10&wbptterms=description&gpssearch=";
+        String midurl = context.getResources().getString(R.string.midurl);
         HttpUtil httpUtil = new HttpUtil(context.getResources().getString(R.string.serverip) + midurl + url, "GET", null, null);
         String jsonresponse = httpUtil.getStringResponse();
-        System.out.println("jjj " + jsonresponse);
-
-       if (!jsonresponse.equalsIgnoreCase("null") && !jsonresponse.equalsIgnoreCase("[]") && !jsonresponse.equalsIgnoreCase("")) {
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(context.getResources().getString(R.string.searchList), jsonresponse);
-            editor.apply();
-            editor.commit();
-        }
 
         return jsonresponse;
     }
