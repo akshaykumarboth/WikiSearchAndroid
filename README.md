@@ -1,5 +1,6 @@
 # WikiSearchAndroid
 
+
 App takes input to search from user, showing suggestions as the user type fetched from Wikipedia API, and showing list of search results and their respective Wiki page.
 
 Instructions:
